@@ -149,18 +149,18 @@
 <body>
 
 <div class="card">
-    <h2>Микрокредитный скоринг</h2>
+    <h2>Кредит в Ибанке</h2>
 
     <form method="post" action="/predict">
 
         <input type="number" name="Age" placeholder="Возраст 18-100"
                value="{{ form.Age | default('') }}" required>
 
-        <input type="number" name="Income" placeholder="Доход 10.000+"
-               value="{{ form.Income | default('') }}" required>
-
-        <input type="number" name="LoanAmount" placeholder="Сумма кредита 5.000 - 250.000"
-               value="{{ form.LoanAmount | default('') }}" required>
+        <input type="number" name="Income" placeholder="Доход 20.001+"
+               value="{{ '{:,}'.format(form.Income | int).replace(',', '.') if form.Income else '' }}" required>
+        
+        <input type="number" name="LoanAmount" placeholder="Сумма кредита 50.000 - 2.500.000"
+               value="{{ '{:,}'.format(form.LoanAmount | int).replace(',', '.') if form.LoanAmount else '' }}" required>
 
 
         <!-- EDUCATION -->
@@ -249,4 +249,5 @@
 </div>
 
 </body>
+
 </html>
