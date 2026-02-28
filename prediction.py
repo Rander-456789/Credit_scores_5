@@ -24,19 +24,18 @@ class Predictions:
         data['LoanPurpose_Home'] = False
 
         if data['LoanPurpose'].iloc[0] == 'Автомобиль': data['LoanPurpose_Auto'] = True
-        elif data['LoanPurpose'] == 'Бизнес': data['LoanPurpose_Business'] = True 
-        elif data['LoanPurpose'] == 'Образование': data['LoanPurpose_Education'] = True 
-        elif data['LoanPurpose'] == 'Недвижимость': data['LoanPurpose_Home'] = True
+        elif data['LoanPurpose'].iloc[0] == 'Бизнес': data['LoanPurpose_Business'] = True 
+        elif data['LoanPurpose'].iloc[0] == 'Образование': data['LoanPurpose_Education'] = True 
+        elif data['LoanPurpose'].iloc[0] == 'Недвижимость': data['LoanPurpose_Home'] = True
 
         data['Inc*LoanAmount'] = data['Income'] * data['LoanAmount']
         data['Inc*age'] = data['Income'] * data['Age']
         data['LoanAmount*age'] = data['LoanAmount'] * data['Age']
 
 
-        age = data['Age']
-        income = data['Income']
-        loan = data['LoanAmount']
-
+        age = data['Age'].iloc[0]
+        income = data['Income'].iloc[0]
+        loan = data['LoanAmount'].iloc[0]
         if (
             18 <= age <= 100 and
             income > 20000 and
