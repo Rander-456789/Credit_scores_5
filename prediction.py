@@ -28,6 +28,8 @@ class Predictions:
         elif data['LoanPurpose'].iloc[0] == 'Образование': data['LoanPurpose_Education'] = True 
         elif data['LoanPurpose'].iloc[0] == 'Недвижимость': data['LoanPurpose_Home'] = True
 
+        data = data.drop(['LoanPurpose'], axis = 1)
+
         data['Inc*LoanAmount'] = data['Income'] * data['LoanAmount']
         data['Inc*age'] = data['Income'] * data['Age']
         data['LoanAmount*age'] = data['LoanAmount'] * data['Age']
@@ -47,3 +49,4 @@ class Predictions:
 
 
 predictions = Predictions()
+
