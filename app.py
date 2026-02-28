@@ -6,7 +6,7 @@ from prediction import predictions
 
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=".")
 
 
 
@@ -59,3 +59,4 @@ def predict(
             "form": df.iloc[0].to_dict()
         }
     )
+
