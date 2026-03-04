@@ -146,24 +146,26 @@
         }
     </style>
 </head>
+
+
 <body>
 
 <div class="card">
-    <h2>Кредит в Ибанке</h2>
+    <h2>Микрокредитный скоринг</h2>
 
     <form method="post" action="/predict">
 
         <input type="number" name="Age" placeholder="Возраст 18-100"
                value="{{ form.Age | default('') }}" required>
 
-        <input type="number" name="Income" placeholder="Доход 20.001+"
-               value="{{ '{:,}'.format(form.Income | int).replace(',', '.') if form.Income else '' }}" required>
-        
-        <input type="number" name="LoanAmount" placeholder="Сумма кредита 50.000 - 2.500.000"
-               value="{{ '{:,}'.format(form.LoanAmount | int).replace(',', '.') if form.LoanAmount else '' }}" required>
+        <input type="text" name="Income" class="money"
+            placeholder="Доход 10.000+"
+            value="{{ form.Income | default('') }}" required>
 
+        <input type="text" name="LoanAmount" class="money"
+            placeholder="Сумма кредита 5.000 - 250.000"
+            value="{{ form.LoanAmount | default('') }}" required>
 
-        <!-- EDUCATION -->
         <div class="section-title">Образование</div>
         <div class="options-grid">
 
@@ -193,8 +195,6 @@
 
         </div>
 
-
-        <!-- LOAN PURPOSE -->
         <div class="section-title">Цель кредита</div>
         <div class="purpose-container">
 
@@ -248,6 +248,43 @@
 
 </div>
 
-</body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+    function formatNumber(value) {
+        value = value.replace(/,/g, '');
+        if (value === '') return '';
+        return parseInt(value).toLocaleString('en-US');
+    }
+
+    const moneyInputs = document.querySelectorAll('.money');
+
+    moneyInputs.forEach(input => {
+
+        input.addEventListener('input', function () {
+            let raw = this.value.replace(/,/g, '');
+
+            if (!isNaN(raw) && raw !== '') {
+                this.value = formatNumber(raw);
+            } else {
+                this.value = '';
+            }
+        });
+
+        if (input.value !== '') {
+            input.value = formatNumber(input.value);
+        }
+    });
+
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function () {
+        moneyInputs.forEach(input => {
+            input.value = input.value.replace(/,/g, '');
+        });
+    });
+
+});
+</script>
+
+</body>
 </html>
