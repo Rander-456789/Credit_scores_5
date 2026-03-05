@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Кредитный скоринг</title>
+
+<style>
+
+body {
+    background: linear-gradient(120deg,#0f172a,#1e3a8a);
+    font-family: Arial;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    background:white;
+    padding:35px;
+    width:430px;
+    border-radius:16px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.3);
+}
+
+h2{
+    text-align:center;
+    color:#1e40af;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:8px;
+    border:1px solid #c7d2fe;
+    font-size:14px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+.section-title{
+    margin-top:20px;
+    font-weight:bold;
+    font-size:14px;
+    color:#374151;
+}
+
+.options-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:10px;
+}
+
+.option-card{
+    padding:10px;
+    border:2px solid #c7d2fe;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.2s;
+    font-size:13px;
+}
+
+.option-card:hover{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+input[type="radio"]{
+    display:none;
+}
+
+input[type="radio"]:checked + .option-card{
+    border-color:#2563eb;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
+}
+
+.purpose-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:10px;
+}
+
+.purpose-btn{
+    flex:1 1 45%;
+    padding:8px;
+    border:2px solid #c7d2fe;
+    border-radius:20px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.2s;
+    font-size:13px;
+}
+
+.purpose-btn:hover{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+input[type="radio"]:checked + .purpose-btn{
+    border-color:#1d4ed8;
+    background:#1d4ed8;
+    color:white;
+    font-weight:bold;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:25px;
+    border-radius:8px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result-block{
+    margin-top:25px;
+}
+
+.status{
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.ok{
+    color:#16a34a;
+}
+
+.bad{
+    color:#dc2626;
+}
+
+.credit-info{
+    margin-top:15px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:7px 0;
+    border-bottom:1px solid #e5e7eb;
+    font-size:14px;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="card">
+
+<h2>Микрокредитный скоринг</h2>
+
+<form method="post" action="/predict">
+
+<input type="number"
+       name="Age"
+       placeholder="Возраст 18-100"
+       value="{{ form.Age | default('') }}"
+       required>
+
+<input type="text"
+       name="Income"
+       class="money"
+       placeholder="Доход 20 000+"
+       value="{{ form.Income | default('') }}"
+       required>
+
+<input type="text"
+       name="LoanAmount"
+       class="money"
+       placeholder="Сумма кредита 500 000 - 25 000 000"
+       value="{{ form.LoanAmount | default('') }}"
+       required>
+
+<input type="number"
+       name="LoanTerm"
+       min="1"
+       max="40"
+       placeholder="Срок кредита (1-40 лет)"
+       value="{{ form.LoanTerm | default('') }}"
+       required>
+
+<div class="section-title">Образование</div>
+
+<div class="options-grid">
+
+<label>
+<input type="radio" name="Education" value="Высшее образование (бакалавр)" required>
+<div class="option-card">Бакалавр</div>
+</label>
+
+<label>
+<input type="radio" name="Education" value="Высшее образование (магистр)">
+<div class="option-card">Магистр</div>
+</label>
+
+<label>
+<input type="radio" name="Education" value="Полное среднее образование">
+<div class="option-card">Среднее</div>
+</label>
+
+<label>
+<input type="radio" name="Education" value="Учёная степень">
+<div class="option-card">Учёная степень</div>
+</label>
+
+</div>
+
+
+<div class="section-title">Цель кредита</div>
+
+<div class="purpose-container">
+
+<label>
+<input type="radio" name="LoanPurpose" value="Автомобиль" required>
+<div class="purpose-btn">🚗 Авто</div>
+</label>
+
+<label>
+<input type="radio" name="LoanPurpose" value="Бизнес">
+<div class="purpose-btn">💼 Бизнес</div>
+</label>
+
+<label>
+<input type="radio" name="LoanPurpose" value="Образование">
+<div class="purpose-btn">🎓 Образование</div>
+</label>
+
+<label>
+<input type="radio" name="LoanPurpose" value="Недвижимость">
+<div class="purpose-btn">🏠 Недвижимость</div>
+</label>
+
+<label>
+<input type="radio" name="LoanPurpose" value="Другое">
+<div class="purpose-btn">📦 Другое</div>
+</label>
+
+</div>
+
+<button type="submit">Оценить</button>
+
+</form>
+
+
+{% if result is not none %}
+
+<div class="result-block">
+
+<div class="status">
+
+{% if result == 0 %}
+<span class="ok">✅ Одобрено</span>
+{% elif result == -1 %}
+<span class="bad">⚠️ Некорректные данные</span>
+{% else %}
+<span class="bad">❌ Отказ</span>
+{% endif %}
+
+</div>
+
+<div class="credit-info">
+
+<div class="row">
+<span>Процентная ставка</span>
+<span>{{ rate if rate==rate else "—" }}</span>
+</div>
+
+<div class="row">
+<span>Общая сумма выплат</span>
+<span>{{ total_payment if total_payment==total_payment else "—" }}</span>
+</div>
+
+<div class="row">
+<span>Ежемесячный платеж</span>
+<span>{{ monthly_payment if monthly_payment==monthly_payment else "—" }}</span>
+</div>
+
+<div class="row">
+<span>Первый платеж</span>
+<span>{{ first_payment if first_payment==first_payment else "—" }}</span>
+</div>
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+<script>
+
+function formatNumber(value){
+value=value.replace(/,/g,'')
+if(value==='')return''
+return parseInt(value).toLocaleString('en-US')
+}
+
+document.querySelectorAll('.money').forEach(input=>{
+
+input.addEventListener('input',function(){
+
+let raw=this.value.replace(/,/g,'')
+
+if(!isNaN(raw)&&raw!==''){
+this.value=formatNumber(raw)
+}else{
+this.value=''
+}
+
+})
+
+})
+
+document.querySelector("form").addEventListener("submit",function(){
+
+document.querySelectorAll('.money').forEach(input=>{
+input.value=input.value.replace(/,/g,'')
+})
+
+})
+
+</script>
+
+</body>
+</html>
