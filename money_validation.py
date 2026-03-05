@@ -7,7 +7,7 @@ import random
 
 def annuity_credit(S, n, rate):
     first_payment = S*0.07
-    s = s - first_payment
+    S = S - first_payment
 
     r_year = rate / 100
     r = r_year / 12
@@ -21,7 +21,7 @@ def annuity_credit(S, n, rate):
     return [round(A, 2), round(total, 2), round(first_payment, 2), rate]
 
 
-def rate_comp(self, LoanPurpose):
+def rate_comp(LoanPurpose):
         if LoanPurpose == 'Автомобиль': return random.randint(160, 210) / 10
         elif LoanPurpose == 'Бизнес': return random.randint(210, 330) / 10 
         elif LoanPurpose == 'Образование': return random.randint(30, 100) / 10
@@ -35,7 +35,7 @@ class Valid:
     def compil(self, data):
 
         rate = rate_comp(data['LoanPurpose'].iloc[0])
-        return annuity_credit(data['LoanAmount'], data['LoanTerm'], rate)
+        return annuity_credit(data['LoanAmount'].iloc[0], data['LoanTerm'].iloc[0], rate)
     
 
 valid = Valid()
