@@ -186,6 +186,7 @@ font-size:14px;
 name="Age"
 id="age"
 placeholder="Возраст 18-100"
+value="{{ form.Age if form else '' }}"
 required>
 
 <input type="text"
@@ -193,6 +194,7 @@ name="Income"
 id="income"
 class="money"
 placeholder="Доход 20 000+"
+value="{{ form.Income if form else '' }}"
 required>
 
 <input type="text"
@@ -200,12 +202,14 @@ name="LoanAmount"
 id="loan"
 class="money"
 placeholder="Сумма кредита 500 000 - 25 000 000"
+value="{{ form.LoanAmount if form else '' }}"
 required>
 
 <input type="number"
 name="LoanTerm"
 id="term"
 placeholder="Срок кредита (1-40 лет)"
+value="{{ form.LoanTerm if form else '' }}"
 required>
 
 <div class="section-title">Образование</div>
