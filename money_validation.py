@@ -5,8 +5,13 @@ import random
 
 import random
 
-def annuity_credit(S, n, rate):
-    first_payment = S*0.07
+def annuity_credit(S, n, rate, purpose):
+
+    if purpose == "Образование":
+        first_payment = 0
+    else:
+        first_payment = S * 0.07
+
     S = S - first_payment
 
     r_year = rate / 100
@@ -15,10 +20,9 @@ def annuity_credit(S, n, rate):
     K = (r * (1 + r) ** n) / ((1 + r) ** n - 1)
     A = S * K
 
-    total = A * n
+    total = A * n + first_payment
 
-
-    return [round(A, 0), round(total, 0), round(first_payment, 0), rate]
+    return [round(A,0), round(total,0), round(first_payment,0), rate]
 
 
 def rate_comp(LoanPurpose):
@@ -35,7 +39,12 @@ class Valid:
     def compil(self, data):
 
         rate = rate_comp(data['LoanPurpose'].iloc[0])
-        return annuity_credit(data['LoanAmount'].iloc[0], data['LoanTerm'].iloc[0], rate)
+        return annuity_credit(
+                data['LoanAmount'].iloc[0],
+                data['LoanTerm'].iloc[0],
+                rate,
+                data['LoanPurpose'].iloc[0]
+            )
     
 
 valid = Valid()

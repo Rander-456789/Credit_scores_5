@@ -6,162 +6,173 @@
 
 <style>
 
-body {
-    background: linear-gradient(120deg,#0f172a,#1e3a8a);
-    font-family: Arial;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+body{
+background:linear-gradient(120deg,#0f172a,#1e3a8a);
+font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
 .card{
-    background:white;
-    padding:35px;
-    width:430px;
-    border-radius:16px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.3);
+background:white;
+padding:35px;
+width:430px;
+border-radius:16px;
+box-shadow:0 20px 50px rgba(0,0,0,0.3);
 }
 
 h2{
-    text-align:center;
-    color:#1e40af;
-    margin-bottom:25px;
+text-align:center;
+color:#1e40af;
+margin-bottom:25px;
 }
 
 input{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
-    border-radius:8px;
-    border:1px solid #c7d2fe;
-    font-size:14px;
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+border:2px solid #c7d2fe;
+font-size:14px;
+transition:0.2s;
 }
 
 input:focus{
-    outline:none;
-    border-color:#2563eb;
+outline:none;
+border-color:#2563eb;
+}
+
+/* состояния */
+input.valid{
+border-color:#16a34a;
+background:#f0fdf4;
+}
+
+input.invalid{
+border-color:#dc2626;
+background:#fef2f2;
 }
 
 .section-title{
-    margin-top:20px;
-    font-weight:bold;
-    font-size:14px;
-    color:#374151;
+margin-top:20px;
+font-weight:bold;
+font-size:14px;
+color:#374151;
 }
 
 .options-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:10px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:10px;
 }
 
 .option-card{
-    padding:10px;
-    border:2px solid #c7d2fe;
-    border-radius:10px;
-    text-align:center;
-    cursor:pointer;
-    transition:0.2s;
-    font-size:13px;
+padding:10px;
+border:2px solid #c7d2fe;
+border-radius:10px;
+text-align:center;
+cursor:pointer;
+transition:0.2s;
+font-size:13px;
 }
 
 .option-card:hover{
-    border-color:#2563eb;
-    background:#eff6ff;
+border-color:#2563eb;
+background:#eff6ff;
 }
 
 input[type="radio"]{
-    display:none;
+display:none;
 }
 
 input[type="radio"]:checked + .option-card{
-    border-color:#2563eb;
-    background:#2563eb;
-    color:white;
-    font-weight:bold;
+border-color:#2563eb;
+background:#2563eb;
+color:white;
+font-weight:bold;
 }
 
 .purpose-container{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:10px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:10px;
 }
 
 .purpose-btn{
-    flex:1 1 45%;
-    padding:8px;
-    border:2px solid #c7d2fe;
-    border-radius:20px;
-    text-align:center;
-    cursor:pointer;
-    transition:0.2s;
-    font-size:13px;
+flex:1 1 45%;
+padding:8px;
+border:2px solid #c7d2fe;
+border-radius:20px;
+text-align:center;
+cursor:pointer;
+transition:0.2s;
+font-size:13px;
 }
 
 .purpose-btn:hover{
-    border-color:#2563eb;
-    background:#eff6ff;
+border-color:#2563eb;
+background:#eff6ff;
 }
 
 input[type="radio"]:checked + .purpose-btn{
-    border-color:#1d4ed8;
-    background:#1d4ed8;
-    color:white;
-    font-weight:bold;
+border-color:#1d4ed8;
+background:#1d4ed8;
+color:white;
+font-weight:bold;
 }
 
 button{
-    width:100%;
-    padding:12px;
-    margin-top:25px;
-    border-radius:8px;
-    border:none;
-    background:#2563eb;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+width:100%;
+padding:12px;
+margin-top:25px;
+border-radius:8px;
+border:none;
+background:#2563eb;
+color:white;
+font-weight:bold;
+cursor:pointer;
 }
 
 button:hover{
-    background:#1d4ed8;
+background:#1d4ed8;
 }
 
 .result-block{
-    margin-top:25px;
+margin-top:25px;
 }
 
 .status{
-    text-align:center;
-    font-size:18px;
-    font-weight:bold;
+text-align:center;
+font-size:18px;
+font-weight:bold;
 }
 
 .ok{
-    color:#16a34a;
+color:#16a34a;
 }
 
 .bad{
-    color:#dc2626;
+color:#dc2626;
 }
 
 .credit-info{
-    margin-top:15px;
+margin-top:15px;
 }
 
 .row{
-    display:flex;
-    justify-content:space-between;
-    padding:7px 0;
-    border-bottom:1px solid #e5e7eb;
-    font-size:14px;
+display:flex;
+justify-content:space-between;
+padding:7px 0;
+border-bottom:1px solid #e5e7eb;
+font-size:14px;
 }
 
 </style>
 </head>
-
 
 <body>
 
@@ -169,35 +180,33 @@ button:hover{
 
 <h2>Заявка на кредит в Ибанке</h2>
 
-<form method="post" action="/predict">
+<form method="post" action="/predict" id="creditForm">
 
 <input type="number"
-       name="Age"
-       placeholder="Возраст 18-100"
-       value="{{ form.Age | default('') }}"
-       required>
+name="Age"
+id="age"
+placeholder="Возраст 18-100"
+required>
 
 <input type="text"
-       name="Income"
-       class="money"
-       placeholder="Доход 20 000+"
-       value="{{ form.Income | default('') }}"
-       required>
+name="Income"
+id="income"
+class="money"
+placeholder="Доход 20 000+"
+required>
 
 <input type="text"
-       name="LoanAmount"
-       class="money"
-       placeholder="Сумма кредита 500 000 - 25 000 000"
-       value="{{ form.LoanAmount | default('') }}"
-       required>
+name="LoanAmount"
+id="loan"
+class="money"
+placeholder="Сумма кредита 500 000 - 25 000 000"
+required>
 
 <input type="number"
-       name="LoanTerm"
-       min="1"
-       max="40"
-       placeholder="Срок кредита (1-40 лет)"
-       value="{{ form.LoanTerm | default('') }}"
-       required>
+name="LoanTerm"
+id="term"
+placeholder="Срок кредита (1-40 лет)"
+required>
 
 <div class="section-title">Образование</div>
 
@@ -224,7 +233,6 @@ button:hover{
 </label>
 
 </div>
-
 
 <div class="section-title">Цель кредита</div>
 
@@ -261,55 +269,46 @@ button:hover{
 
 </form>
 
-
-{% if result is not none %}
-
+{% if result == 0 %}
 <div class="result-block">
 
-<div class="status">
-
-{% if result == 0 %}
-<span class="ok">✅ Одобрено</span>
-{% elif result == -1 %}
-<span class="bad">⚠️ Некорректные данные</span>
-{% else %}
-<span class="bad">❌ Отказ</span>
-{% endif %}
-
-</div>
+<div class="status ok">✅ Одобрено</div>
 
 <div class="credit-info">
 
 <div class="row">
 <span>Процентная ставка</span>
-<span>{{ rate if rate==rate else "—" }}</span>
+<span>{{ rate }}</span>
 </div>
 
 <div class="row">
 <span>Общая сумма выплат</span>
-<span>{{ total_payment if total_payment==total_payment else "—" }}</span>
+<span>{{ total_payment }}</span>
 </div>
 
 <div class="row">
 <span>Ежемесячный платеж</span>
-<span>{{ monthly_payment if monthly_payment==monthly_payment else "—" }}</span>
+<span>{{ monthly_payment }}</span>
 </div>
 
 <div class="row">
 <span>Первый платеж</span>
-<span>{{ first_payment if first_payment==first_payment else "—" }}</span>
+<span>{{ first_payment }}</span>
 </div>
 
 </div>
-
 </div>
-
+{% elif result == 1 %}
+<div class="result-block">
+<div class="status bad">❌ Отказ</div>
+</div>
 {% endif %}
 
 </div>
 
-
 <script>
+
+/* формат денег */
 
 function formatNumber(value){
 value=value.replace(/,/g,'')
@@ -332,6 +331,42 @@ this.value=''
 })
 
 })
+
+/* валидация */
+
+function validateField(input,min,max){
+
+if(input.value==='') return
+
+let value=parseFloat(input.value.replace(/,/g,''))
+
+if(value>=min && value<=max){
+input.classList.remove("invalid")
+input.classList.add("valid")
+}else{
+input.classList.remove("valid")
+input.classList.add("invalid")
+}
+
+}
+
+document.getElementById("age").addEventListener("input",function(){
+validateField(this,18,100)
+})
+
+document.getElementById("income").addEventListener("input",function(){
+validateField(this,20000,1000000000)
+})
+
+document.getElementById("loan").addEventListener("input",function(){
+validateField(this,500000,25000000)
+})
+
+document.getElementById("term").addEventListener("input",function(){
+validateField(this,1,40)
+})
+
+/* перед отправкой убираем запятые */
 
 document.querySelector("form").addEventListener("submit",function(){
 
