@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 fastapi
 uvicorn
 jinja2
@@ -5,4 +6,13 @@ scikit-learn
 pandas
 joblib
 python-multipart
+=======
+fastapi
+uvicorn
+jinja2
+scikit-learn
+pandas
+joblib
+python-multipart
+>>>>>>> 04a9c40293cf571645ff5c4a8d7b11bb1f41d539
 lightgbm

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -345,3 +346,295 @@ input.value=input.value.replace(/,/g,'')
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кредитный скоринг</title>
+
+    <style>
+        body {
+            background: linear-gradient(120deg, #0f172a, #1e3a8a);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            width: 420px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e40af;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #c7d2fe;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .section-title {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        /* Карточки образования */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .option-card {
+            padding: 10px;
+            border: 2px solid #c7d2fe;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-size: 13px;
+        }
+
+        .option-card:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked + .option-card {
+            border-color: #2563eb;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Кнопки цели кредита */
+        .purpose-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .purpose-btn {
+            flex: 1 1 45%;
+            padding: 8px;
+            border: 2px solid #c7d2fe;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-size: 13px;
+        }
+
+        .purpose-btn:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        input[type="radio"]:checked + .purpose-btn {
+            border-color: #1d4ed8;
+            background: #1d4ed8;
+            color: white;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            border-radius: 8px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .ok {
+            color: #16a34a;
+        }
+
+        .bad {
+            color: #dc2626;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="card">
+    <h2>Микрокредитный скоринг</h2>
+
+    <form method="post" action="/predict">
+
+        <input type="number" name="Age" placeholder="Возраст 18-100"
+               value="{{ form.Age | default('') }}" required>
+
+        <input type="text" name="Income" class="money"
+            placeholder="Доход 10.000+"
+            value="{{ form.Income | default('') }}" required>
+
+        <input type="text" name="LoanAmount" class="money"
+            placeholder="Сумма кредита 5.000 - 250.000"
+            value="{{ form.LoanAmount | default('') }}" required>
+
+        <div class="section-title">Образование</div>
+        <div class="options-grid">
+
+            <label>
+                <input type="radio" name="Education" value="Высшее образование (бакалавр)"
+                {% if form.Education == "Высшее образование (бакалавр)" %}checked{% endif %} required>
+                <div class="option-card">Бакалавр</div>
+            </label>
+
+            <label>
+                <input type="radio" name="Education" value="Высшее образование (магистр)"
+                {% if form.Education == "Высшее образование (магистр)" %}checked{% endif %}>
+                <div class="option-card">Магистр</div>
+            </label>
+
+            <label>
+                <input type="radio" name="Education" value="Полное среднее образование"
+                {% if form.Education == "Полное среднее образование" %}checked{% endif %}>
+                <div class="option-card">Среднее</div>
+            </label>
+
+            <label>
+                <input type="radio" name="Education" value="Учёная степень"
+                {% if form.Education == "Учёная степень" %}checked{% endif %}>
+                <div class="option-card">Учёная степень</div>
+            </label>
+
+        </div>
+
+        <div class="section-title">Цель кредита</div>
+        <div class="purpose-container">
+
+            <label>
+                <input type="radio" name="LoanPurpose" value="Автомобиль"
+                {% if form.LoanPurpose == "Автомобиль" %}checked{% endif %} required>
+                <div class="purpose-btn">🚗 Автомобиль</div>
+            </label>
+
+            <label>
+                <input type="radio" name="LoanPurpose" value="Бизнес"
+                {% if form.LoanPurpose == "Бизнес" %}checked{% endif %}>
+                <div class="purpose-btn">💼 Бизнес</div>
+            </label>
+
+            <label>
+                <input type="radio" name="LoanPurpose" value="Образование"
+                {% if form.LoanPurpose == "Образование" %}checked{% endif %}>
+                <div class="purpose-btn">🎓 Образование</div>
+            </label>
+
+            <label>
+                <input type="radio" name="LoanPurpose" value="Недвижимость"
+                {% if form.LoanPurpose == "Недвижимость" %}checked{% endif %}>
+                <div class="purpose-btn">🏠 Недвижимость</div>
+            </label>
+
+            <label>
+                <input type="radio" name="LoanPurpose" value="Другое"
+                {% if form.LoanPurpose == "Другое" %}checked{% endif %}>
+                <div class="purpose-btn">📦 Другое</div>
+            </label>
+
+        </div>
+
+        <button type="submit">Оценить</button>
+
+    </form>
+
+    {% if result is not none %}
+    <div class="result">
+        {% if result == 0 %}
+            <span class="ok">✅ Одобрено</span>
+        {% elif result == -1 %}
+            <span class="bad">⚠️ Некорректно введены данные</span>
+        {% else %}
+            <span class="bad">❌ Отказ</span>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    function formatNumber(value) {
+        value = value.replace(/,/g, '');
+        if (value === '') return '';
+        return parseInt(value).toLocaleString('en-US');
+    }
+
+    const moneyInputs = document.querySelectorAll('.money');
+
+    moneyInputs.forEach(input => {
+
+        input.addEventListener('input', function () {
+            let raw = this.value.replace(/,/g, '');
+
+            if (!isNaN(raw) && raw !== '') {
+                this.value = formatNumber(raw);
+            } else {
+                this.value = '';
+            }
+        });
+
+        if (input.value !== '') {
+            input.value = formatNumber(input.value);
+        }
+    });
+
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function () {
+        moneyInputs.forEach(input => {
+            input.value = input.value.replace(/,/g, '');
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>
+>>>>>>> 04a9c40293cf571645ff5c4a8d7b11bb1f41d539
