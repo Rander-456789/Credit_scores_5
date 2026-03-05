@@ -55,10 +55,10 @@ def predict(
         {
             "request": request,
             "result": result,
-            "rate": mon[0],
+            "rate": mon[3],
             "total_payment": mon[1],
-            "monthly_payment": mon[2],
-            "first_payment": mon[3],
+            "monthly_payment": mon[0],
+            "first_payment": mon[2],
             "form": df.iloc[0].to_dict()
         }
     )
