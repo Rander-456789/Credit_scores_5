@@ -48,6 +48,8 @@ def predict(
         mon = valid.compil(df)
 
 
+    df['LoanTerm'] = df['LoanTerm'].apply(lambda x:x//12)
+
     return templates.TemplateResponse(
         "index.html",
         {

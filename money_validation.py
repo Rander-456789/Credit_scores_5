@@ -18,7 +18,7 @@ def annuity_credit(S, n, rate):
     total = A * n
 
 
-    return [round(A, 2), round(total, 2), round(first_payment, 2), rate]
+    return [round(A, 0), round(total, 0), round(first_payment, 0), rate]
 
 
 def rate_comp(LoanPurpose):
