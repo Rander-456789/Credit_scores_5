@@ -1,5 +1,32 @@
 import pandas as pd
 from threading import Lock
+import random
+
+
+import random
+
+def annuity_credit(S, n, rate):
+    first_payment = S*0.07
+    s = s - first_payment
+
+    r_year = rate / 100
+    r = r_year / 12
+
+    K = (r * (1 + r) ** n) / ((1 + r) ** n - 1)
+    A = S * K
+
+    total = A * n
+
+
+    return [round(A, 2), round(total, 2), round(first_payment, 2), rate]
+
+
+def rate_comp(self, LoanPurpose):
+        if LoanPurpose == 'Автомобиль': return random.randint(160, 210) / 10
+        elif LoanPurpose == 'Бизнес': return random.randint(210, 330) / 10 
+        elif LoanPurpose == 'Образование': return random.randint(30, 100) / 10
+        elif LoanPurpose == 'Недвижимость': return random.randint(160, 180) / 10
+        return random.randint(180, 300) / 10
 
 class Valid:
     def __init__(self):
@@ -7,7 +34,8 @@ class Valid:
 
     def compil(self, data):
 
-        return [15, 45546564, 50000, 200000]
+        rate = rate_comp(data['LoanPurpose'].iloc[0])
+        return annuity_credit(data['LoanAmount'], data['LoanTerm'], rate)
     
 
 valid = Valid()
