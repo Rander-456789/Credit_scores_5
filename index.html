@@ -306,6 +306,11 @@ required>
 <div class="result-block">
 <div class="status bad">❌ Отказ</div>
 </div>
+{% elif result == -1 %}
+<div class="result-block">
+<div class="status warning">Зарплата слишком маленькая😢<br>предлагаем увеличить срок займа</div>
+</div>
+
 {% endif %}
 
 </div>
