@@ -46,6 +46,8 @@ def predict(
     result = predictions.pred(df, 0.38)
     if result == 0:
         mon = valid.compil(df)
+        if mon[0]>= df['Income'].iloc[0]:
+            result = 1
 
 
     df['LoanTerm'] = df['LoanTerm'].apply(lambda x:x//12)
