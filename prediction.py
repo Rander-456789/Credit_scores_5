@@ -8,7 +8,7 @@ class Predictions:
     def __init__(self):
         self.lock = Lock()
 
-    def pred(self, data, flag=0.5):
+    def pred(self, data, flag=0.25):
         model = joblib.load("model.pkl")
         LoanTerm = data['LoanTerm'].iloc[0]
 
