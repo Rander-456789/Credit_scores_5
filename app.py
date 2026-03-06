@@ -43,7 +43,7 @@ def predict(
     }])
 
     
-    result = predictions.pred(df, 0.25)
+    result = predictions.pred(df, 0.3)
     if result == 0:
         mon = valid.compil(df)
 

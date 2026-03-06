@@ -47,7 +47,9 @@ class Predictions:
             500000 <= loan <= 25000000 and
             12 <= LoanTerm <= 480
         ):
-            return int(model.predict_proba(data)[0][1] >= flag)
+            if 23 >= age or age >= 65:
+                return 1
+            else: return int(model.predict_proba(data)[0][1] >= flag)
         else:
             return -1
 
